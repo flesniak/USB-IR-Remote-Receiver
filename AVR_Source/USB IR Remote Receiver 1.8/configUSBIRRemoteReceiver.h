@@ -14,17 +14,24 @@ extern "C"
 {
 #endif
 
-#define USE_BOOTLOADER			1					/* 1 if boot loader option should be included (default), 0 to disable */
+#define USE_BOOTLOADER			0					/* 1 if boot loader option should be included (default), 0 to disable */
 
 //define output pin for power on switch:
-#define USE_PowerOnFunction		1					/* 1, use PowerOn function (default), 0 to disable */
+#define USE_PowerOnFunction		0					/* 1, use PowerOn function (default), 0 to disable */
 
 #if USE_PowerOnFunction
-#define SWITCH_PORT 		PORTC					/* PORTx - register for Switch output */
-#define SWITCH_BIT  		PC5						/* bit where OK1 will be connected */
-#define SWITCH_DDR  		DDRC					/* Switch data direction register */
+#define SWITCH_PORT 		PORTD					/* PORTx - register for Switch output */
+#define SWITCH_BIT  		PD4						/* bit where OK1 will be connected */
+#define SWITCH_DDR  		DDRD					/* Switch data direction register */
 #endif
 
+#define USE_LED // enable callback LED
+
+#ifdef USE_LED
+#define LED_PORT PORTB
+#define LED_DDR  DDRB
+#define LED_PIN  0
+#endif
 
 #if USE_BOOTLOADER
 	#define USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH    98

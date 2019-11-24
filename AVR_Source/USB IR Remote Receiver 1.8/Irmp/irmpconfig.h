@@ -91,7 +91,7 @@
  */
 #if defined (ATMEL_AVR)                                                 // use PD4 as IR input on AVR
 #  define IRMP_PORT_LETTER                      D
-#  define IRMP_BIT_NUMBER                       4
+#  define IRMP_BIT_NUMBER                       7
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------
  * Change hardware pin here for PIC C18 compiler
@@ -161,7 +161,7 @@
  *---------------------------------------------------------------------------------------------------------------------------------------------------
  */
 #ifndef IRMP_USE_CALLBACK
-#  define IRMP_USE_CALLBACK                     0       // 1: use callbacks. 0: do not. default is 0
+#  define IRMP_USE_CALLBACK                     1       // 1: use callbacks. 0: do not. default is 0
 #endif
 
 #endif /* _WC_IRMPCONFIG_H_ */

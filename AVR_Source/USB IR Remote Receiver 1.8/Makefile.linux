@@ -1,4 +1,4 @@
-DEVICE := atmega168
+DEVICE := atmega8
 F_CPU := 12000000UL
 
 AVRDUDE_PROGRAMMER := avrispv2
@@ -18,6 +18,9 @@ LDFLAGS := -Wl,-Map,USB_IR_Remote_Receiver.map -mmcu=$(DEVICE)
 OBJECTS = usbdrv/usbdrv.o usbdrv/usbdrvasm.o Irmp/irmp.o main.o
 
 PROJECT = USB_IR_Remote_Receiver
+
+%.o: %.c configUSBIRRemoteReceiver.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
 .c.o:
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
