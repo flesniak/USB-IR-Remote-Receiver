@@ -22,7 +22,7 @@ at least be connected to INT0 as well.
 
 #include "configUSBIRRemoteReceiver.h"	/* main config file */
 
-#include "Irmp\irmp.h"			/* ir remote handling */
+#include "irmp.h"            /* ir remote handling */
 
 #include <avr/pgmspace.h>   /* required by usbdrv.h */
 #include "usbdrv.h"			/* v-usb driver */
@@ -172,8 +172,23 @@ init_io(void)
 		SWITCH_PORT ^=	_BV (SWITCH_BIT);								/* deactivate pull-ups on PowerOn pin */ 	
 		SWITCH_DDR ^= _BV (SWITCH_BIT);									/* set switch pin as digital output */
 	#endif
+
+#ifdef USE_LED
+    LED_PORT &= ~(1 << LED_PIN); // disable pullup / LED
+    LED_DDR |= (1 << LED_PIN);   // output for LED
+#endif
 }
  
+#ifdef USE_LED
+void
+led_callback(uint_fast8_t on)
+{
+    if (on)
+        LED_PORT |= (1 << LED_PIN);
+    else
+        LED_PORT &= ~(1 << LED_PIN);
+}
+#endif
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------
  * timer 1 compare handler, should be called every 1/10000 sec
@@ -365,6 +380,9 @@ uchar   i;
 	memset(&trained_irmp_data, 0x00, sizeof(trained_irmp_data));										// clear trained_irmp_data
 
 	irmp_init();                                                            							// initialize irmp code
+#ifdef USE_LED
+    irmp_set_callback_ptr(led_callback);
+#endif
 	timer_init();                                                           							// initialize timer
 
     usbDeviceDisconnect();  																			/* enforce re-enumeration, do this while interrupts are disabled! */
