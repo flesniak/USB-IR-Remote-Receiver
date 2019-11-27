@@ -91,7 +91,7 @@ PROGMEM const char usbHidReportDescriptor[USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH] 
 /* The following variables store the status of the current data transfer */
 static uchar            currentAddress       = 0;
 static unsigned short   bytesRemaining       = 0;
-static uchar            PowerOnEnabled       = TRUE;
+static uchar            PowerOnEnabled       = FALSE;
 
 /* const for V-USB feature report ID handling */
 const uchar      NewIRCodeAvailable = 1;
@@ -356,7 +356,6 @@ static void SendINTData(void)
 */
 int main(void)
 {
-uchar   i;
     /* Even if you don't use the watchdog, turn it off here. On newer devices,
      * the status of the watchdog (on/off, period) is PRESERVED OVER RESET!
      */
@@ -386,7 +385,7 @@ uchar   i;
     timer_init();                                                                                       // initialize timer
 
     usbDeviceDisconnect();                                                                              /* enforce re-enumeration, do this while interrupts are disabled! */
-    i = 0;
+    uchar i = 0;
     while(--i){                                                                                         /* fake USB disconnect for > 500 ms */
         wdt_reset();
         _delay_ms(5);
