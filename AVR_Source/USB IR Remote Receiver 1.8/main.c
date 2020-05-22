@@ -32,7 +32,7 @@ at least be connected to INT0 as well.
 #endif
 
 //enter here the Irmp build date:
-const char IrmpVersion[] = "12.03.2013";
+const char IrmpVersion[] = "3.1.5 20190827";
 
 
 
