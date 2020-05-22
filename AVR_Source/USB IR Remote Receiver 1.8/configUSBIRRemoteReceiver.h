@@ -30,7 +30,7 @@ extern "C"
 #ifdef USE_LED
 #define LED_PORT PORTB
 #define LED_DDR  DDRB
-#define LED_PIN  0
+#define LED_PIN  1
 #endif
 
 #if USE_BOOTLOADER

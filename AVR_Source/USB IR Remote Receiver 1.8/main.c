@@ -121,7 +121,7 @@ static uchar    DisableBootloader    = 0;
 
 /* reapeat counters for received IR codes */
 static uchar    RepeatCounter        = 0;
-static uchar    MinRepeats           = 5;    // default minimum repeat counter
+static uchar    MinRepeats           = 3;    // default minimum repeat counter
 
 static IRMP_DATA irmp_data;
 static IRMP_DATA trained_irmp_data;
